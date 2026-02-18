@@ -128,7 +128,6 @@ class FirebaseProjectManager
 
         return new FirebaseProject(
             $factory,
-            $config['dynamic_links']['default_domain'] ?? null,
             $config['firestore']['database'] ?? null,
         );
     }

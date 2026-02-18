@@ -107,16 +107,6 @@ final class FirebaseProjectManagerTest extends TestCase
     }
 
     #[Test]
-    public function the_dynamic_links_default_domain_can_be_configured(): void
-    {
-        config(['firebase.projects.app.dynamic_links.default_domain' => 'invalid']);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/url.+invalid/i');
-        $this->projectManager()->project()->dynamicLinks();
-    }
-
-    #[Test]
     public function the_storage_default_bucket_can_be_configured(): void
     {
         config(['firebase.projects.app.storage.default_bucket' => 1]);

@@ -7,7 +7,6 @@ namespace Kreait\Laravel\Firebase;
 use Kreait\Firebase\Contract\AppCheck;
 use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Contract\Database;
-use Kreait\Firebase\Contract\DynamicLinks;
 use Kreait\Firebase\Contract\Firestore;
 use Kreait\Firebase\Contract\Messaging;
 use Kreait\Firebase\Contract\RemoteConfig;
@@ -22,8 +21,6 @@ class FirebaseProject
 
     protected ?Database $database = null;
 
-    protected ?DynamicLinks $dynamicLinks = null;
-
     protected ?Firestore $firestore = null;
 
     protected ?Messaging $messaging = null;
@@ -34,7 +31,6 @@ class FirebaseProject
 
     public function __construct(
         protected Factory $factory,
-        protected ?string $dynamicLinksDefaultDomain,
         protected ?string $firestoreDatabase
     ) {}
 
@@ -63,15 +59,6 @@ class FirebaseProject
         }
 
         return $this->database;
-    }
-
-    public function dynamicLinks(): DynamicLinks
-    {
-        if (! $this->dynamicLinks) {
-            $this->dynamicLinks = $this->factory->createDynamicLinksService($this->dynamicLinksDefaultDomain);
-        }
-
-        return $this->dynamicLinks;
     }
 
     public function firestore(): Firestore

@@ -41,9 +41,6 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->singleton(Firebase\Contract\Database::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->database());
         $this->app->alias(Firebase\Contract\Database::class, 'firebase.database');
 
-        $this->app->singleton(Firebase\Contract\DynamicLinks::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->dynamicLinks());
-        $this->app->alias(Firebase\Contract\DynamicLinks::class, 'firebase.dynamic_links');
-
         $this->app->singleton(Firebase\Contract\Firestore::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->firestore());
         $this->app->alias(Firebase\Contract\Firestore::class, 'firebase.firestore');
 
