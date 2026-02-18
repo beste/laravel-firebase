@@ -1,7 +1,16 @@
 {
     "name": "kreait/laravel-firebase",
     "description": "A Laravel package for the Firebase PHP Admin SDK",
-    "keywords": ["laravel", "firebase", "firebase", "sdk", "api", "database", "fcm", "gcm"],
+    "keywords": [
+        "laravel",
+        "firebase",
+        "firebase",
+        "sdk",
+        "api",
+        "database",
+        "fcm",
+        "gcm"
+    ],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -18,7 +27,7 @@
     ],
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-        "kreait/firebase-php": "^7.19",
+        "kreait/firebase-php": "^8.0",
         "illuminate/contracts": "^11.0 || ^12.0",
         "illuminate/notifications": "^11.0 || ^12.0",
         "illuminate/support": "^11.0 || ^12.0",
