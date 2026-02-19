@@ -20,7 +20,6 @@ final class ServiceProviderTest extends TestCase
         $this->assertInstanceOf(Firebase\Contract\AppCheck::class, $this->app->make(Firebase\Contract\AppCheck::class));
         $this->assertInstanceOf(Firebase\Contract\Auth::class, $this->app->make(Firebase\Contract\Auth::class));
         $this->assertInstanceOf(Firebase\Contract\Database::class, $this->app->make(Firebase\Contract\Database::class));
-        $this->assertInstanceOf(Firebase\Contract\DynamicLinks::class, $this->app->make(Firebase\Contract\DynamicLinks::class));
         $this->assertInstanceOf(Firebase\Contract\Messaging::class, $this->app->make(Firebase\Contract\Messaging::class));
         $this->assertInstanceOf(Firebase\Contract\RemoteConfig::class, $this->app->make(Firebase\Contract\RemoteConfig::class));
         $this->assertInstanceOf(Firebase\Contract\Storage::class, $this->app->make(Firebase\Contract\Storage::class));
