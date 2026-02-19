@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 7.0.0 - 2026-02-19
+
 * Upgraded `kreait/firebase-php` from 7.x to 8.x
 * Dropped support for PHP 8.2 (The SDK requires at least PHP 8.3)
 
