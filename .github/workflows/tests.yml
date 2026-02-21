@@ -3,19 +3,20 @@ name: Tests
 on:
   pull_request:
     paths:
-      - 'config/**'
-      - 'src/**'
-      - 'tests/**'
-      - '.github/workflows/tests.yml'
-      - 'composer.json'
+      - config/**
+      - src/**
+      - tests/**
+      - .github/workflows/tests.yml
+      - composer.json
   push:
-    branches: ['main']
+    branches:
+      - main
     paths:
-      - 'config/**'
-      - 'src/**'
-      - 'tests/**'
-      - '.github/workflows/tests.yml'
-      - 'composer.json'
+      - config/**
+      - src/**
+      - tests/**
+      - .github/workflows/tests.yml
+      - composer.json
   workflow_dispatch:
 
 concurrency:
@@ -25,17 +26,13 @@ concurrency:
 jobs:
   test:
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
-    runs-on: 'ubuntu-latest'
+
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        php:
-          - "8.3"
-          - "8.4"
-          - "8.5"
-        laravel:
-          - "11"
-          - "12"
+        php: ['8.3', '8.4', '8.5']
+        laravel: ['11', '12', '13']
 
     steps:
       - name: Checkout code
@@ -61,9 +58,8 @@ jobs:
       - name: Run PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml --testdox
 
-
       - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
+        if: '${{ !cancelled() }}'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -71,7 +67,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Upload coverage to Codecov
-        if: ${{ !cancelled() }}
+        if: '${{ !cancelled() }}'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
