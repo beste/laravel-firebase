@@ -36,6 +36,7 @@ jobs:
         laravel:
           - "11"
           - "12"
+          - "13"
 
     steps:
       - name: Checkout code
