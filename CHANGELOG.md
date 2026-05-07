@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 7.2.1 - 2026-05-07
+
+* Fix HTTP and HTTP Debug logging
+  ([#260](https://github.com/beste/laravel-firebase/pull/260), [#262](https://github.com/beste/laravel-firebase/pull/262))
+
 ## 7.2.0 - 2026-05-07
 
 * Added support for `symfony/cache:^8.0.8`
