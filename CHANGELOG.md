@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 7.2.0 - 2026-05-07
+
 * Added support for `symfony/cache:^8.0.8`
 
 ## 7.1.0 - 2026-03-20
