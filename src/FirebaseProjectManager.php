@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase;
 
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Http\HttpClientOptions;
+use Psr\Log\LogLevel;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Adapter\Psr16Adapter;
 
@@ -98,19 +101,29 @@ class FirebaseProjectManager
                 ->withAuthTokenCache($cache);
         }
 
+        $options = HttpClientOptions::default();
+
         if ($logChannel = $config['logging']['http_log_channel'] ?? null) {
-            $factory = $factory->withHttpLogger(
-                $this->app->make('log')->channel($logChannel)
+            $options = $options->withGuzzleMiddleware(
+                Middleware::log(
+                    $this->app->make('log')->channel($logChannel),
+                    new MessageFormatter,
+                    LogLevel::INFO
+                ),
+                'firebase_http_logs',
             );
         }
 
         if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
-            $factory = $factory->withHttpDebugLogger(
-                $this->app->make('log')->channel($logChannel)
+            $options = $options->withGuzzleMiddleware(
+                Middleware::log(
+                    $this->app->make('log')->channel($logChannel),
+                    new MessageFormatter(MessageFormatter::DEBUG),
+                    LogLevel::INFO
+                ),
+                'firebase_http_debug_logs',
             );
         }
-
-        $options = HttpClientOptions::default();
 
         if ($proxy = $config['http_client_options']['proxy'] ?? null) {
             $options = $options->withProxy($proxy);
