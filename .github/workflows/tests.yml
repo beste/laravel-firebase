@@ -37,6 +37,10 @@ jobs:
           - "11"
           - "12"
           - "13"
+        include:
+          - php: "8.6"
+            laravel: "13"
+            composer-options: "--ignore-platform-req=php+"
 
     steps:
       - name: Checkout code
@@ -51,8 +55,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require -W "illuminate/contracts:^${{ matrix.laravel }}.0"
-          composer require -W --dev orchestra/testbench
+          composer require -W "illuminate/contracts:^${{ matrix.laravel }}.0" ${{ matrix.composer-options }}
+          composer require -W --dev orchestra/testbench ${{ matrix.composer-options }}
 
       - name: Setup Problem Matchers
         run: |
