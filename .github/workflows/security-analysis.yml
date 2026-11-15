@@ -1,0 +1,56 @@
+name: GitHub Actions Security Analysis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**"
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**"
+  workflow_dispatch:
+  schedule:
+    - cron: "23 5 * * 1" # weekly, off the hour
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    name: Run actionlint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run actionlint
+        run: |
+          go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12 \
+          -format '{{range .}}::error file={{.Filepath}},line={{.Line}},col={{.Column}}::{{.Message}}
+          {{end}}'
+
+  zizmor:
+    name: Run zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read # read workflow artifacts/results for analysis
+      contents: read # read repo content for workflow scan
+      security-events: write # publish SARIF findings to Code Scanning
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run zizmor 🌈
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
