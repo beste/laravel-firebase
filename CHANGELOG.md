@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 7.3.0 - 2026-11-21
+
 * Added support for PHP 8.6
 * Dropped support for Laravel 11
 
