@@ -4,7 +4,6 @@
 
 * Added support for PHP 8.6
 * Dropped support for Laravel 11
-* Dropped support for `symfony/cache:^6.1.2`
 
 ## 7.2.1 - 2026-05-07
 
